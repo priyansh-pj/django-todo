@@ -1,0 +1,36 @@
+{% extends 'header.html' %}
+{% block content %}
+    <h2>Task Items</h2>
+    <h4 style="color: green">Completed Task</h4>
+    <ul>
+    {% for elements in completed %}
+        <li><strong>{{ elements }}</strong> - {{ elements.description }}</li>
+    {% endfor %}
+    </ul>
+    <h4 style="color: red">Pending Task</h4>
+    <ul>
+    {% for elements in pending %}
+        <li><strong>{{ elements }}</strong> - {{ elements.description }} (<a href="{% url 'updateTask' elements.id%}">Update Status</a>)</li>
+    {% endfor %}
+    </ul>
+    <hr>
+    <h5>Add Task</h5>
+    <form action="{% url 'viewTask' id %}" method="post">
+    {% csrf_token %}
+    <table>
+        {% for form_item in form %}
+            <tr>
+            <td>
+                {{ form_item.label }}
+            </td>
+            <td>
+                {{ form_item }}
+            </td>
+            </tr>
+
+        {% endfor %}
+
+    </table>
+        <tr><input type="submit" value="Add Category"></tr>
+    </form>
+{% endblock %}
